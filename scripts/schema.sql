@@ -11,11 +11,12 @@ USE `RedeLivrarias`;
 -- Table `RedeLivrarias`.`Distribuição`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`Distribuicao`(
+`ID` INT NOT NULL,
 `matricula` VARCHAR(45) NOT NULL,
 `equipa` VARCHAR(45) NOT NULL,
 `custo_envio` DECIMAL(6, 2),
 
-PRIMARY KEY (`matricula`));
+PRIMARY KEY (`ID`));
 
 -- -----------------------------------------------------
 -- Table `RedeLivrarias`.`Cliente`
@@ -39,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`Fornecedor`(
 
 PRIMARY KEY (`contribuinte`));
 
+
 -- -----------------------------------------------------
 -- Table `RedeLivrarias`.`Recomendou`
 -- -----------------------------------------------------
@@ -49,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`Recomendou`(
 
 PRIMARY KEY (`Cliente_recomenda`, `Cliente_recomendado`),
 
-CONSTRAINT `fk_Cliente_Recomendou` FOREIGN KEY (`Cliente_recomenda`) REFERENCES `RedeLivrarias`.`Cliente` (`NIF`),
+CONSTRAINT `fk_Cliente_Recomenda` FOREIGN KEY (`Cliente_recomenda`) REFERENCES `RedeLivrarias`.`Cliente` (`NIF`),
 CONSTRAINT `fk_Cliente_Recomendado` FOREIGN KEY (`Cliente_recomendado`) REFERENCES `RedeLivrarias`.`Cliente` (`NIF`));
 
 
@@ -70,12 +72,12 @@ CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`Encomenda`(
 `entregue` VARCHAR(1) NOT NULL,
 `lucro_total` DECIMAL(6, 2) NOT NULL,
 `Cliente_NIF` INT NOT NULL,
-`Distribuicao_matricula` VARCHAR(45) NOT NULL,
+`Distribuicao_ID` INT NOT NULL,
 
-PRIMARY KEY (`ID`, `Cliente_NIF`, `Distribuicao_matricula`),
+PRIMARY KEY (`ID`, `Cliente_NIF`, `Distribuicao_ID`),
 
 CONSTRAINT `fk_Encomenda_Cliente` FOREIGN KEY (`Cliente_NIF`) REFERENCES `RedeLivrarias`.`Cliente` (`NIF`),
-CONSTRAINT `fk_Encomenda_Distribuicao` FOREIGN KEY (`Distribuicao_matricula`) REFERENCES `RedeLivrarias`.`Distribuicao` (`matricula`));
+CONSTRAINT `fk_Encomenda_Distribuicao` FOREIGN KEY (`Distribuicao_ID`) REFERENCES `RedeLivrarias`.`Distribuicao` (`ID`));
 
 
 -- -----------------------------------------------------
@@ -117,6 +119,7 @@ PRIMARY KEY (`Fornecedor_contribuinte`, `Livro_ID`),
 
 CONSTRAINT `fk_Fornecedor_Livro` FOREIGN KEY (`Fornecedor_contribuinte`) REFERENCES `RedeLivrarias`.`Fornecedor` (`contribuinte`),
 CONSTRAINT `fk_Livro_Fornecedor` FOREIGN KEY (`Livro_ID`) REFERENCES `RedeLivrarias`.`Livro` (`ID`));
+
 
 -- -----------------------------------------------------
 -- Table `RedeLivrarias`.`Contactos`
