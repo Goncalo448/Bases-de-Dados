@@ -5,7 +5,7 @@
 CREATE SCHEMA IF NOT EXISTS `RedeLivrarias`
 DEFAULT CHARACTER SET utf8;
 USE `RedeLivrarias`;
-
+#DROP SCHEMA RedeLivrarias;
 
 -- -----------------------------------------------------
 -- Table `RedeLivrarias`.`Distribuição`
