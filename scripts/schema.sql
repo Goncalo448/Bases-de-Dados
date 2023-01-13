@@ -70,7 +70,6 @@ CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`Encomenda`(
 `em_espera` VARCHAR(1) NOT NULL,
 `enviada` VARCHAR(1) NOT NULL,
 `entregue` VARCHAR(1) NOT NULL,
-`lucro_total` DECIMAL(6, 2) NOT NULL,
 `Cliente_NIF` INT NOT NULL,
 `Distribuicao_ID` INT NOT NULL,
 
@@ -86,9 +85,8 @@ CONSTRAINT `fk_Encomenda_Distribuicao` FOREIGN KEY (`Distribuicao_ID`) REFERENCE
 CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`Livro`(
 `ID` INT NOT NULL,
 `preco` DECIMAL(6, 2) NOT NULL,
-`stock` INT NOT NULL,
 `titulo` VARCHAR(45) NOT NULL,
-`lucro` DECIMAL(6, 2) NOT NULL,
+`stock` INT NOT NULL,
 
 PRIMARY KEY (`ID`));
 
@@ -110,8 +108,8 @@ CONSTRAINT `fk_Encomenda_Livro` FOREIGN KEY (`Encomenda_ID`) REFERENCES `RedeLiv
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`FornecedorLivro`(
 `data` DATETIME NOT NULL,
-`quantidade` INT NOT NULL,
 `preco` DECIMAL(6, 2) NOT NULL,
+`quantidade` INT NOT NULL,
 `Fornecedor_contribuinte` INT NOT NULL,
 `Livro_ID` INT NOT NULL,
 
@@ -122,15 +120,25 @@ CONSTRAINT `fk_Livro_Fornecedor` FOREIGN KEY (`Livro_ID`) REFERENCES `RedeLivrar
 
 
 -- -----------------------------------------------------
--- Table `RedeLivrarias`.`Contactos`
+-- Table `RedeLivrarias`.`ContactosCliente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`Contactos`(
+CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`ContactosCliente`(
 `contacto` VARCHAR(45) NOT NULL,
 `Cliente_NIF` INT NOT NULL,
-`Fornecedor_contribuinte` INT NOT NULL,
 
-PRIMARY KEY (`contacto`, `Cliente_NIF`, `Fornecedor_Contribuinte`),
+PRIMARY KEY (`contacto`, `Cliente_NIF`),
 
-CONSTRAINT `fk_Contactos_Cliente` FOREIGN KEY (`Cliente_NIF`) REFERENCES `RedeLivrarias`.`Cliente` (`NIF`),
-CONSTRAINT `fk_Contactos_Fornecedor` FOREIGN KEY (`Fornecedor_contribuinte`) REFERENCES `RedeLivrarias`.`Fornecedor` (`contribuinte`));
+CONSTRAINT `fk_Contactos_Cliente` FOREIGN KEY (`Cliente_NIF`) REFERENCES `RedeLivrarias`.`Cliente` (`NIF`));
+
+
+-- -----------------------------------------------------
+-- Table `RedeLivrarias`.`ContactosFornecedor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`ContactosFornecedor`(
+`contacto` VARCHAR(45) NOT NULL,
+`Fornecedor_Contribuinte` INT NOT NULL,
+
+PRIMARY KEY (`contacto`, `Fornecedor_Contribuinte`),
+
+CONSTRAINT `fk_Contactos_Fornecedor` FOREIGN KEY (`Fornecedor_Contribuinte`) REFERENCES `RedeLivrarias`.`Fornecedor` (`contribuinte`));
 
