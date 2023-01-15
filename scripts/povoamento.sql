@@ -151,7 +151,7 @@ INSERT INTO Distribuicao
 INSERT INTO Encomenda 
 		(ID, localidade, rua, codigo_postal, preco, data_de_realizacao, IVA, em_processamento, em_espera, enviada, entregue, Cliente_NIF, Distribuicao_ID)
 		VALUES
-				('1', 'Vizela', 'Rua do Rio Vizela', '4815-423', '0.0', '2022-11-01', '0.06', 'N', 'N', 'N', 'N', '00000001', 01),
+				('1', 'Vizela', 'Rua do Rio Vizela', '4815-423', '0.0', '2022-11-01', 0.06, 'N', 'N', 'N', 'N', '00000001', 01),
 				('2', 'Vizela', 'Rua do Café', '4815-402', '0.0', '2022-10-21', '0.06', 'N', 'N', 'N', 'N', '00000011', 02),
 				('3', 'Braga', 'Rua da Palmeira', '4700-481', '0.0', '2022-09-08', '0.06', 'N', 'N', 'N', 'N', '00000009', 03),
 				('4', 'Braga', 'Rua de São Pedro', '4700-860', '0.0', '2022-11-13', '0.06', 'N', 'N', 'N', 'N', '00000021', 04),

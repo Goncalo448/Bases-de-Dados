@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `RedeLivrarias`.`Encomenda`(
 `codigo_postal` VARCHAR(45) NOT NULL,
 `preco` DECIMAL(6, 2) NOT NULL,
 `data_de_realizacao` DATETIME NOT NULL,
-`IVA` INT NOT NULL,
+`IVA` DECIMAL(6,2) NOT NULL,
 `em_processamento` VARCHAR(1) NOT NULL,
 `em_espera` VARCHAR(1) NOT NULL,
 `enviada` VARCHAR(1) NOT NULL,
