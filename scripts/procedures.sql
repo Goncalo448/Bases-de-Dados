@@ -33,53 +33,31 @@ BEGIN
 		SET preco = calcula_preco_encomenda(ID)
 		WHERE ID = id_encomenda;
 END; $$
-DROP PROCEDURE atualiza_preco_encomenda;
 
-#procedimento que atualiza o stock de cada livro consoante as receitas por parte dos fornecedores
+
+#trigger que atualiza o stock de cada livro sempre que chegam livros provenientes de um fornecedor
 DELIMITER $$
-CREATE PROCEDURE atualiza_stock_apos_receita(IN idlivro INT)
+CREATE TRIGGER atualiza_stock_apos_receita
+	AFTER INSERT ON FornecedorLivro
+    FOR EACH ROW
 BEGIN
 	UPDATE Livro
-		SET stock = stock + (SELECT SUM(FL.quantidade) 
-								FROM FornecedorLivro AS FL
-								WHERE FL.Livro_ID = ID)
-		WHERE idlivro = ID;
+        SET stock = stock + NEW.quantidade
+        WHERE ID = NEW.Livro_ID;
 END; $$
 
 
 #procedimento que atualiza o stock de cada livro consoante as encomendas
 DELIMITER $$
-CREATE PROCEDURE atualiza_stock_apos_venda(IN idlivro INT)
-BEGIN
+CREATE TRIGGER atualiza_stock_apos_venda
+	AFTER INSERT ON LivroEncomenda
+    FOR EACH ROW
+BEGIN 
 	UPDATE Livro
-		SET stock = stock - (SELECT COUNT(LE.Livro_ID)
-								FROM LivroEncomenda AS LE
-                                WHERE LE.Livro_ID = idlivro)
-		WHERE idlivro = ID;
+		SET stock = stock - 1
+        WHERE ID = NEW.Livro_ID;
 END; $$
 
-
-CALL atualiza_stock_apos_receita(1);
-CALL atualiza_stock_apos_receita(2);
-CALL atualiza_stock_apos_receita(3);
-CALL atualiza_stock_apos_receita(4);
-CALL atualiza_stock_apos_receita(5);
-CALL atualiza_stock_apos_receita(6);
-CALL atualiza_stock_apos_receita(7);
-CALL atualiza_stock_apos_receita(8);
-CALL atualiza_stock_apos_receita(9);
-CALL atualiza_stock_apos_receita(10);
-
-CALL atualiza_stock_apos_venda(1);
-CALL atualiza_stock_apos_venda(2);
-CALL atualiza_stock_apos_venda(3);
-CALL atualiza_stock_apos_venda(4);
-CALL atualiza_stock_apos_venda(5);
-CALL atualiza_stock_apos_venda(6);
-CALL atualiza_stock_apos_venda(7);
-CALL atualiza_stock_apos_venda(8);
-CALL atualiza_stock_apos_venda(9);
-CALL atualiza_stock_apos_venda(10);
 
 CALL atualiza_preco_encomenda(1);
 CALL atualiza_preco_encomenda(2);
@@ -89,4 +67,3 @@ CALL atualiza_preco_encomenda(5);
 CALL atualiza_preco_encomenda(6);
 CALL atualiza_preco_encomenda(7);
 CALL atualiza_preco_encomenda(8);
-

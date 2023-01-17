@@ -3,7 +3,7 @@ CREATE USER 'Maria de Melo'@'localhost';
 -- Definição de password
 SET PASSWORD FOR 'Maria de Melo'@'localhost' = 'livraria1';
 -- Atribuição de privilégios - Dona Maria de Melo 
-GRANT ALL ON *.* TO 'Maria de Melo'@'localhost';
+GRANT ALL ON RedeLivrarias.* TO 'Maria de Melo'@'localhost';
 
 -- Criação do utilizador 'user'
 -- Marido
